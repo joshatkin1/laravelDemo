@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\User;
+use App\Services\Session;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
 
@@ -15,10 +15,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('user', function ($app) {
-            return new User();
-        });
 
+
+        #THIS WILL RETURN THE EXACT SAME INSTANCE THROUGHOUT THE LIFECYCLE OF AN ENTIRE SESSION
+        #WHILE COUPLED WITH THE BOOT CODE app('session') (example purposes)
+        $this->app->singleton('session', function ($app) {
+            return new Session();
+        });
 
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
@@ -33,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        app('user');
+        #THIS REGISTERS THE SESSION SERVICES AS A SINGLETON
+        #FOR THE ENTIRE LIFETIME OF A USERS SESSION (for example purposes)
+        app('session');
     }
 }

@@ -170,10 +170,7 @@ return [
     ],
 
     'swoole' => [
-        'ssl' => true,
         'options' => [
-            'ssl_cert_file' => '/etc/swoole/ssl/certs/sail-selfsigned.crt',
-            'ssl_key_file' => '/etc/swoole/ssl/private/sail-selfsigned.key',
             'log_file' => storage_path('logs/swoole_http.log'),
             'package_max_length' => 10 * 1024 * 1024,
         ],

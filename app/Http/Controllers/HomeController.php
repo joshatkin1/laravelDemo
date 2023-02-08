@@ -21,8 +21,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        app('session')->store(microtime());
-
-        var_dump(app('session')->store);
+        return 'cd';
     }
 }

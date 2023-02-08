@@ -53,9 +53,9 @@ RUN openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=Artisan, Inc./CN=loc
     -addext "subjectAltName=DNS:localhost" -newkey rsa:2048 \
     -keyout /etc/swoole/ssl/private/sail-selfsigned.key \
     -out /etc/swoole/ssl/certs/sail-selfsigned.crt;
-RUN chmod 644 /etc/swoole/ssl/certs/*.crt
+RUN chmod 770 /etc/swoole/ssl/certs/*.crt
 RUN chown -R root:sail /etc/swoole/ssl/private/
-RUN chmod 640 /etc/swoole/ssl/private/*.key
+RUN chmod 770 /etc/swoole/ssl/private/*.key
 
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf

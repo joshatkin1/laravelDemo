@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-
 class HomeController extends Controller
 {
     /**
@@ -21,10 +19,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(User $user)
+    public function index()
     {
-        app('user')->store(microtime());
+        app('session')->store(microtime());
 
-        var_dump(app('user')->store);
+        var_dump(app('session')->store);
     }
 }

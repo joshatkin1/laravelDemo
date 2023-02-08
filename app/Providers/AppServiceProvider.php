@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
 
         #THIS WILL RETURN THE EXACT SAME INSTANCE THROUGHOUT THE LIFECYCLE OF AN ENTIRE SESSION
         #WHILE COUPLED WITH THE BOOT CODE app('session') (example purposes)
-        $this->app->singleton('session', function ($app) {
+        $this->app->singleton('service', function ($app) {
             return new Session();
         });
 

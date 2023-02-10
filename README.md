@@ -15,5 +15,7 @@ Please follow the below instructions to view the project locally:
 6. ./vendor/bin/sail build --no-cache
 7. ./vendor/bin/sail up -d
 8. ./vendor/bin/sail artisan octane:reload
+9. then view app in https://0.0.0.0:8000/home
 
-There is no real purpose of the functionality in this project, just a demonstration.
+This app is just for demonstration and the functionality has no purpose,
+(I would not design and use some of these features in the way they have been implemented here)

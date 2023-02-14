@@ -11,10 +11,10 @@ use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,
-        Searchable,
-        HasFactory,
-        Notifiable;
+    use HasApiTokens;
+    use Searchable;
+    use HasFactory;
+    use Notifiable;
 
 
     /**

@@ -15,7 +15,13 @@ class FoodApi extends ApiAbstract implements FoodApiInterface
         parent::__construct();
     }
 
-    public function getMenus() {
+    /**
+     * Get all menus
+     *
+     * @return mixed
+     */
+    public function getMenus(): mixed
+    {
         $response = $this->apiClient->get($this->apiClient->BASE_URL . "/menus", [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->apiClient->access_token
@@ -25,7 +31,14 @@ class FoodApi extends ApiAbstract implements FoodApiInterface
         return json_decode($response->getBody()->getContents());
     }
 
-    public function getMenuProducts(int $menuId):array
+    /**
+     * Get all products for a specific menu
+     *
+     * @param int $menuId
+     * @return array
+     * @throws \HttpRequestException
+     */
+    public function getMenuProducts(int $menuId): array
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->apiClient->access_token,
@@ -47,7 +60,16 @@ class FoodApi extends ApiAbstract implements FoodApiInterface
         return $products;
     }
 
-    public function updateProduct(int $menuId, int $productId, $updatedProductData)
+    /**
+     * Update the api product
+     *
+     * @param int $menuId
+     * @param int $productId
+     * @param $updatedProductData
+     * @return bool
+     * @throws \HttpRequestException
+     */
+    public function updateProduct(int $menuId, int $productId, $updatedProductData): bool
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->apiClient->access_token,

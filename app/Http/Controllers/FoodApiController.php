@@ -19,6 +19,9 @@ class FoodApiController extends Controller
 
     public function index(ApiClient $apiClient)
     {
+        //JUST OCTANE SWOOLE CONCURRENCY EXAMPLE, CURRENTLY NOT HOOKED UP & WORKING
+        return 'NOT HOOKED UP & WORKING';
+
         $data = [$menus, $products] = Octane::concurrently([
             fn () => $apiClient->getMenus(),
             fn () => $apiClient->getMenuProducts()

@@ -8,13 +8,16 @@ use PHPUnit\Framework\TestCase;
 
 class FoodApiTest extends TestCase
 {
-    protected $foodApiService;
+    protected $ApiService;
+    protected $ApiClient;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->foodApiService = new ApiClient(new ApiClient());
+        $this->ApiService = new ApiClient(new ApiClient());
+        $this->ApiClient = new ApiClient();
+
     }
 
     public function testGetMenus()
@@ -32,15 +35,15 @@ class FoodApiTest extends TestCase
         ];
 
         Http::fake([
-            '*/menus' => Http::response($expectedData, 200)
+            '*/' . $this->ApiClient->MENUS_ENDPOINT => Http::response($expectedData, 200)
         ]);
 
         // Act
-        $response = $this->foodApiService->getMenus();
+        $response = $this->ApiService->getMenus();
 
         // Assert
         Http::assertSent(function ($request) {
-            return $request->url() === $this->foodApiService->apiClient->BASE_URL . $this->foodApiService->apiClient->MENUS_ENDPOINT
+            return $request->url() === $this->ApiClient->BASE_URL . $this->ApiClient->MENUS_ENDPOINT
                 && $request->method() === 'GET';
         });
 
@@ -49,7 +52,7 @@ class FoodApiTest extends TestCase
 
     public function testGetMenuProducts()
     {
-        $products = $this->foodApiService->getMenuProducts('Takeaway');
+        $products = $this->ApiService->getMenuProducts('Takeaway');
         $this->assertIsArray($products);
         $this->assertNotEmpty($products);
 
@@ -78,7 +81,7 @@ class FoodApiTest extends TestCase
                 "id" => 6,
                 "name" => "Salad"
             ]
-    ];
+        ];
 
         $this->assertEquals($expected, $products);
     }
@@ -99,7 +102,7 @@ class FoodApiTest extends TestCase
         $menuId = 7;
         $updatedProduct = ['id' => $productId, 'name' => 'Chips'];
 
-        $result = $this->foodApiService->updateProduct($menuId, $productId, $updatedProduct);
+        $result = $this->ApiService->updateProduct($menuId, $productId, $updatedProduct);
 
         $this->assertTrue($result);
     }

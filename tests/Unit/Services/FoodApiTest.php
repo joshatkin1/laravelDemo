@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Services;
+namespace Tests\Unit\Services;
 
-use App\Models\ApiClient;
+use App\Models\Client;
+use App\Services\ApiClient;
 use PHPUnit\Framework\TestCase;
-use App\Services\FoodApi;
 
 class FoodApiTest extends TestCase
 {
@@ -14,12 +14,11 @@ class FoodApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->foodApiService = new FoodApi(new ApiClient());
+        $this->foodApiService = new ApiClient(new ApiClient());
     }
 
     public function testGetMenus()
     {
-        $this->
     }
 
     public function testGetMenuProducts()
@@ -40,7 +39,7 @@ class FoodApiTest extends TestCase
     public function testUpdateProduct()
     {
 
-        $mock = $this->getMockBuilder(FoodApi::class)
+        $mock = $this->getMockBuilder(ApiClient::class)
             ->setMethods(['updateProduct'])
             ->getMock();
 

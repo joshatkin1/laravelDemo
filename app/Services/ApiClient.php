@@ -3,23 +3,20 @@
 namespace App\Services;
 
 use App\Abstracts\Api as ApiAbstract;
-use App\Models\ApiClient;
-use App\Interfaces\FoodApi as FoodApiInterface;
+use App\Models\Client;
+use App\Interfaces\ApiClient as ApiClientInterface;
 use Illuminate\Support\Facades\Http;
 
-class FoodApi extends ApiAbstract implements FoodApiInterface
+class ApiClient extends ApiAbstract implements ApiClientInterface
 {
-    public function __construct(ApiClient $apiClient){
+    public function __construct(Client $apiClient){
         $this->apiClient = $apiClient;
+
+        $this->authenticate();
 
         parent::__construct();
     }
 
-    /**
-     * Get all menus
-     *
-     * @return mixed
-     */
     public function getMenus(): mixed
     {
         $response = $this->apiClient->get($this->apiClient->BASE_URL . "/menus", [
@@ -31,13 +28,6 @@ class FoodApi extends ApiAbstract implements FoodApiInterface
         return json_decode($response->getBody()->getContents());
     }
 
-    /**
-     * Get all products for a specific menu
-     *
-     * @param int $menuId
-     * @return array
-     * @throws \HttpRequestException
-     */
     public function getMenuProducts(int $menuId): array
     {
         $response = Http::withHeaders([
@@ -60,15 +50,6 @@ class FoodApi extends ApiAbstract implements FoodApiInterface
         return $products;
     }
 
-    /**
-     * Update the api product
-     *
-     * @param int $menuId
-     * @param int $productId
-     * @param $updatedProductData
-     * @return bool
-     * @throws \HttpRequestException
-     */
     public function updateProduct(int $menuId, int $productId, $updatedProductData): bool
     {
         $response = Http::withHeaders([

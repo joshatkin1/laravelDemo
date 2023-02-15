@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ApiClient extends Model
+class Client extends Model
 {
     /**
      * THIS WOULD BE MADE INTO A CRUD MODEL TO STORE ALL CLIENT DETAILS IN A DATABASE TABLE

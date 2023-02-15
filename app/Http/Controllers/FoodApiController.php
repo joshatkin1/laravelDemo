@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Laravel\Octane\Facades\Octane;
-use App\Interfaces\FoodApi;
+use App\Interfaces\ApiClient;
 
 class FoodApiController extends Controller
 {
@@ -18,11 +18,11 @@ class FoodApiController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(FoodApi $foodApi)
+    public function index(ApiClient $apiClient)
     {
         $data = [$menus, $products] = Octane::concurrently([
-            fn () => $foodApi->getMenus(),
-            fn () => $foodApi->getMenuProducts()
+            fn () => $apiClient->getMenus(),
+            fn () => $apiClient->getMenuProducts()
         ]);
 
         var_dump($data);

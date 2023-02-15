@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface FoodApi
+interface ApiClient
 {
     public function getMenus();
 

@@ -13,9 +13,7 @@ abstract class Api
 
     protected $response;
 
-    public function __construct()
-    {
-    }
+    public function __construct(){}
 
     protected function authenticate()
     {

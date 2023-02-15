@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Laravel\Octane\Facades\Octane;
 use App\Interfaces\ApiClient;
 
@@ -26,6 +25,5 @@ class FoodApiController extends Controller
         ]);
 
         var_dump($data);
-
     }
 }

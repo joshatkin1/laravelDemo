@@ -18,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(ApiClient::class, function ($app) {
-
             /** THIS WOULD BE MODIFIED TO INSTANTIATE A SPECIFIC API CLIENT
              * BY PASSING IN CLIENT_ID INTO CONSTRUCTOR
              */

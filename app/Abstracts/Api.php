@@ -2,21 +2,20 @@
 
 namespace App\Abstracts;
 
-use App\Models\Client;
-use Exception;
 use Http\Client\Exception\HttpException;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 
-abstract class Api {
-
+abstract class Api
+{
     protected $apiClient;
 
     protected $curl;
 
     protected $response;
 
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     protected function authenticate()
     {
@@ -28,7 +27,7 @@ abstract class Api {
             'grant_type' => $this->apiClient->grant_type,
         ]);
 
-        if(!$response->successful()){
+        if (!$response->successful()) {
             throw new HttpException('Failed to authenticate with the 3rd party api');
         }
 

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Http;
 
 class ApiClient extends ApiAbstract implements ApiClientInterface
 {
-    public function __construct(Client $apiClient){
+    public function __construct(Client $apiClient)
+    {
         $this->apiClient = $apiClient;
 
         $this->authenticate();
@@ -24,7 +25,7 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
                 'Authorization' => 'Bearer ' . $this->apiClient->access_token
             ]
         ]);
-        
+
         return json_decode($response->getBody()->getContents());
     }
 
@@ -34,7 +35,7 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
             'Authorization' => 'Bearer ' . $this->apiClient->access_token,
         ])->get($this->apiClient->BASE_URL . 'menu/' . $menuId . '/products');
 
-        if($response->failed()){
+        if ($response->failed()) {
             throw new \HttpRequestException('api call failed');
         }
 
@@ -56,7 +57,7 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
             'Authorization' => 'Bearer ' . $this->apiClient->access_token,
         ])->put($this->apiClient->BASE_URL . 'menu/' . $menuId . '/product/' . $productId, $updatedProductData);
 
-        if($response->failed()){
+        if ($response->failed()) {
             throw new \HttpRequestException('api call failed');
         }
 

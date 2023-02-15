@@ -9,5 +9,4 @@ interface ApiClient
     public function getMenuProducts();
 
     public function updateProduct();
-
 }

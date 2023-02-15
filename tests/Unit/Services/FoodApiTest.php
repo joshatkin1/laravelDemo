@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services;
 
-use App\Models\Client;
 use App\Services\ApiClient;
+use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\TestCase;
 
 class FoodApiTest extends TestCase
@@ -19,6 +19,32 @@ class FoodApiTest extends TestCase
 
     public function testGetMenus()
     {
+        // Arrange
+        $expectedData = [
+            [
+                'id' => 1,
+                'name' => 'Main Menu'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Dessert Menu'
+            ]
+        ];
+
+        Http::fake([
+            '*/menus' => Http::response($expectedData, 200)
+        ]);
+
+        // Act
+        $response = $this->foodApiService->getMenus();
+
+        // Assert
+        Http::assertSent(function ($request) {
+            return $request->url() === $this->foodApiService->apiClient->BASE_URL . $this->foodApiService->apiClient->MENUS_ENDPOINT
+                && $request->method() === 'GET';
+        });
+
+        $this->assertEquals($expectedData, $response);
     }
 
     public function testGetMenuProducts()
@@ -27,18 +53,38 @@ class FoodApiTest extends TestCase
         $this->assertIsArray($products);
         $this->assertNotEmpty($products);
 
-        $expected = [
-            ['id' => 4, 'name' => 'Burger'],
-            ['id' => 5, 'name' => 'Chips'],
-            ['id' => 99, 'name' => 'Lasagna'],
-        ];
+        $expected =  [
+            [
+                "id" => 1,
+                "name" => "Large Pizza"
+            ],
+            [
+                "id" => 2,
+                "name" => "Medium Pizza"
+            ],
+            [
+                "id" => 3,
+                "name" => "Burger"
+            ],
+            [
+                "id" => 4,
+                "name" => "Chips"
+            ],
+            [
+                "id" => 5,
+                "name" => "Soup"
+            ],
+            [
+                "id" => 6,
+                "name" => "Salad"
+            ]
+    ];
 
         $this->assertEquals($expected, $products);
     }
 
     public function testUpdateProduct()
     {
-
         $mock = $this->getMockBuilder(ApiClient::class)
             ->setMethods(['updateProduct'])
             ->getMock();

@@ -11,7 +11,7 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
 {
     public function __construct(Client $apiClient)
     {
-        $this->apiClient = $apiClient;
+        $this->client = $apiClient;
         $this->authenticate();
     }
 
@@ -23,9 +23,9 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
      */
     public function getMenus(): mixed
     {
-        $response = $this->apiClient->get($this->apiClient->BASE_URL . "/menus", [
+        $response = $this->client->get($this->client->BASE_URL . "/menus", [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->apiClient->access_token
+                'Authorization' => 'Bearer ' . $this->client->access_token
             ]
         ]);
 
@@ -47,8 +47,8 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
     public function getMenuProducts(int $menuId): array
     {
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->apiClient->access_token,
-        ])->get($this->apiClient->BASE_URL . 'menu/' . $menuId . '/products');
+            'Authorization' => 'Bearer ' . $this->client->access_token,
+        ])->get($this->client->BASE_URL . 'menu/' . $menuId . '/products');
 
         if ($response->failed()) {
             throw new \HttpRequestException('api call failed');
@@ -79,8 +79,8 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
     public function updateProduct(int $menuId, int $productId, $updatedProductData): bool
     {
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->apiClient->access_token,
-        ])->put($this->apiClient->BASE_URL . 'menu/' . $menuId . '/product/' . $productId, $updatedProductData);
+            'Authorization' => 'Bearer ' . $this->client->access_token,
+        ])->put($this->client->BASE_URL . 'menu/' . $menuId . '/product/' . $productId, $updatedProductData);
 
         if ($response->failed()) {
             throw new \HttpRequestException('api call failed');

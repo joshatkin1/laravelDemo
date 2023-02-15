@@ -11,7 +11,7 @@ abstract class Api
     /**
      * @var ApiClient $apiClient
      */
-    protected $apiClient;
+    protected $client;
 
     /**
      * This sends the request to authenticate with the 3rd party api and receives the access_token upon success
@@ -22,10 +22,10 @@ abstract class Api
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/x-www-form-urlencoded',
-        ])->retry(2)->post($this->apiClient->BASE_URL . 'auth_token', [
-            'client_secret' => $this->apiClient->client_secret,
-            'client_id' => $this->apiClient->client_id,
-            'grant_type' => $this->apiClient->grant_type,
+        ])->retry(2)->post($this->client->BASE_URL . 'auth_token', [
+            'client_secret' => $this->client->client_secret,
+            'client_id' => $this->client->client_id,
+            'grant_type' => $this->client->grant_type,
         ]);
 
         if (!$response->successful()) {

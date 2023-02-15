@@ -6,7 +6,7 @@ use App\Services\ApiClient;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\TestCase;
 
-class FoodApiTest extends TestCase
+class ApiTest extends TestCase
 {
     protected $ApiService;
     protected $ApiClient;

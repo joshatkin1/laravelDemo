@@ -3,6 +3,7 @@
 namespace Tests\Unit\Services;
 
 use App\Services\ApiClient;
+use App\Models\Client;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\TestCase;
 
@@ -15,14 +16,12 @@ class ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->ApiService = new ApiClient(new ApiClient());
-        $this->ApiClient = new ApiClient();
-
+        $this->ApiService = new ApiClient(new Client());
+        $this->ApiClient = new Client();
     }
 
     public function testGetMenus()
     {
-        // Arrange
         $expectedData = [
             [
                 'id' => 1,
@@ -38,10 +37,8 @@ class ApiTest extends TestCase
             '*/' . $this->ApiClient->MENUS_ENDPOINT => Http::response($expectedData, 200)
         ]);
 
-        // Act
         $response = $this->ApiService->getMenus();
 
-        // Assert
         Http::assertSent(function ($request) {
             return $request->url() === $this->ApiClient->BASE_URL . $this->ApiClient->MENUS_ENDPOINT
                 && $request->method() === 'GET';
@@ -92,7 +89,6 @@ class ApiTest extends TestCase
             ->setMethods(['updateProduct'])
             ->getMock();
 
-        // Set the return value of getValue method
         $mock->expects($this->any())
             ->method('updateProduct')
             ->willReturn(true);

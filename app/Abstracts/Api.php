@@ -2,20 +2,23 @@
 
 namespace App\Abstracts;
 
+use App\Services\ApiClient;
 use Http\Client\Exception\HttpException;
 use Illuminate\Support\Facades\Http;
 
 abstract class Api
 {
+    /**
+     * @var ApiClient $apiClient
+     */
     protected $apiClient;
 
-    protected $curl;
-
-    protected $response;
-
-    public function __construct(){}
-
-    protected function authenticate()
+    /**
+     * This sends the request to authenticate with the 3rd party api and receives the access_token upon success
+     *
+     * @return mixed
+     */
+    protected function authenticate(): mixed
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/x-www-form-urlencoded',

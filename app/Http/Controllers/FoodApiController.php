@@ -7,17 +7,21 @@ use App\Interfaces\ApiClient;
 
 class FoodApiController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function index(ApiClient $apiClient)
+    /**
+     * This is the food api index which simply var_dumps out the api data
+     *
+     * @param ApiClient $apiClient
+     *
+     * @return string
+     *
+     * TODO:: make this return a simple vue ui
+     */
+    public function index(ApiClient $apiClient): string
     {
         //JUST OCTANE SWOOLE CONCURRENCY EXAMPLE, CURRENTLY NOT HOOKED UP & WORKING
         return 'NOT HOOKED UP & WORKING';

@@ -12,12 +12,15 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
     public function __construct(Client $apiClient)
     {
         $this->apiClient = $apiClient;
-
         $this->authenticate();
-
-        parent::__construct();
     }
 
+    /**
+     * This sends the request to get the menus from api
+     *
+     * @return mixed
+     * @throws \HttpRequestException
+     */
     public function getMenus(): mixed
     {
         $response = $this->apiClient->get($this->apiClient->BASE_URL . "/menus", [
@@ -26,9 +29,21 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
             ]
         ]);
 
+        if ($response->failed()) {
+            throw new \HttpRequestException('api call failed');
+        }
+
         return json_decode($response->getBody()->getContents());
     }
 
+    /**
+     * This sends api request to get specific menu products
+     *
+     * @param int $menuId
+     *
+     * @return array
+     * @throws \HttpRequestException
+     */
     public function getMenuProducts(int $menuId): array
     {
         $response = Http::withHeaders([
@@ -51,6 +66,16 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
         return $products;
     }
 
+    /**
+     *This sends the request to update the product
+     *
+     * @param int $menuId
+     * @param int $productId
+     * @param $updatedProductData
+     *
+     * @return bool
+     * @throws \HttpRequestException
+     */
     public function updateProduct(int $menuId, int $productId, $updatedProductData): bool
     {
         $response = Http::withHeaders([

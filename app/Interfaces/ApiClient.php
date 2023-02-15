@@ -6,7 +6,7 @@ interface ApiClient
 {
     public function getMenus();
 
-    public function getMenuProducts();
+    public function getMenuProducts(int $menuId);
 
-    public function updateProduct();
+    public function updateProduct(int $menuId, int $productId, $updatedProductData);
 }

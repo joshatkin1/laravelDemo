@@ -8,15 +8,15 @@ class Client extends Model
 {
     /**TODO::CHANGE THIS INTO A CRUD MODEL WITH MIGRATION SO IT WORKS WITH MULTIPLE API CLIENTS*/
 
-    public const BASE_URL = "https://greatfoodltd.com/api/";
+    const BASE_URL = "https://localhost:8000/api/";
 
-    public const AUTH_TOKEN_ENDPOINT = "auth_token";
+    const AUTH_TOKEN_ENDPOINT = "auth_token";
 
-    public const MENUS_ENDPOINT = "menus";
+    const MENUS_ENDPOINT = "menus";
 
-    public const PRODUCTS_ENDPOINT = "menu/{menu_id}/products";
+    const PRODUCTS_ENDPOINT = "menu/{menu_id}/products";
 
-    public const PRODUCT_ENDPOINT = "menu/{menu_id}/product/{product_id}";
+    const PRODUCT_ENDPOINT = "menu/{menu_id}/product/{product_id}";
 
     protected $access_token = null;
 
@@ -25,4 +25,28 @@ class Client extends Model
     private $client_id = "1337";
 
     private $grant_type = "client_credentials";
+
+    /**
+     * @return string
+     */
+    public function getClientSecret(): string
+    {
+        return $this->client_secret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientId(): string
+    {
+        return $this->client_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGrantType(): string
+    {
+        return $this->grant_type;
+    }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Laravel\Octane\Facades\Octane;
 use App\Interfaces\ApiClient;
+use Laravel\Octane\Facades\Octane;
 
 class FoodApiController extends Controller
 {

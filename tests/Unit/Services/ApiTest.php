@@ -4,20 +4,21 @@ namespace Tests\Unit\Services;
 
 use App\Services\ApiClient;
 use App\Models\Client;
+use App\Services\FoodApi;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\TestCase;
 
 class ApiTest extends TestCase
 {
-    protected $ApiService;
-    protected $ApiClient;
+    protected $foodApi;
+    protected $client;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->ApiService = new ApiClient(new Client());
-        $this->ApiClient = new Client();
+        $this->foodApi = new ApiClient(new Client());
+        $this->client = new Client();
     }
 
     public function testGetMenus()
@@ -34,13 +35,13 @@ class ApiTest extends TestCase
         ];
 
         Http::fake([
-            '*/' . $this->ApiClient->MENUS_ENDPOINT => Http::response($expectedData, 200)
+            '*/' . $this->client->MENUS_ENDPOINT => Http::response($expectedData, 200)
         ]);
 
-        $response = $this->ApiService->getMenus();
+        $response = $this->FoodApiService->getMenus();
 
         Http::assertSent(function ($request) {
-            return $request->url() === $this->ApiClient->BASE_URL . $this->ApiClient->MENUS_ENDPOINT
+            return $request->url() === $this->client->BASE_URL . $this->client->MENUS_ENDPOINT
                 && $request->method() === 'GET';
         });
 
@@ -49,7 +50,7 @@ class ApiTest extends TestCase
 
     public function testGetMenuProducts()
     {
-        $products = $this->ApiService->getMenuProducts('Takeaway');
+        $products = $this->foodApi->getMenuProducts('Takeaway');
         $this->assertIsArray($products);
         $this->assertNotEmpty($products);
 
@@ -85,7 +86,7 @@ class ApiTest extends TestCase
 
     public function testUpdateProduct()
     {
-        $mock = $this->getMockBuilder(ApiClient::class)
+        $mock = $this->getMockBuilder(FoodApi::class)
             ->setMethods(['updateProduct'])
             ->getMock();
 
@@ -98,7 +99,7 @@ class ApiTest extends TestCase
         $menuId = 7;
         $updatedProduct = ['id' => $productId, 'name' => 'Chips'];
 
-        $result = $this->ApiService->updateProduct($menuId, $productId, $updatedProduct);
+        $result = $this->foodApi->updateProduct($menuId, $productId, $updatedProduct);
 
         $this->assertTrue($result);
     }

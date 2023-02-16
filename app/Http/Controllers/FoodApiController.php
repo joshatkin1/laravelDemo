@@ -30,7 +30,5 @@ class FoodApiController extends Controller
             fn () => $apiClient->getMenus(),
             fn () => $apiClient->getMenuProducts()
         ]);
-
-        var_dump($data);
     }
 }

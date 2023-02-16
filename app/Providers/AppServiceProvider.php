@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Interfaces\Api as ApiInterface;
+use App\Interfaces\ApiClient as ApiInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
-use App\Services\Api;
+use App\Services\ApiClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ApiInterface::class, fn($app) => Api::class);
+        $this->app->bind(ApiInterface::class, fn($app) => ApiClient::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);

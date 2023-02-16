@@ -9,13 +9,7 @@ use League\OAuth1\Client\Credentials\CredentialsException;
 
 abstract class Api
 {
-    public $client;
-
-    public function __construct(Client $apiClient)
-    {
-        $this->client = $apiClient;
-        $this->authenticate();
-    }
+    protected Client $client;
 
     /**
      * This sends the request to authenticate with the 3rd party api and receives the access_token upon success

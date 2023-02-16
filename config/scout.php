@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'algolia'),
+    'driver' => env('SCOUT_DRIVER', 'meilisearch'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +42,11 @@ return [
     */
 
     'queue' => env('SCOUT_QUEUE', false),
+
+//    'queue' => [
+//        'connection' => 'redis',
+//        'queue' => 'scout'
+//    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -130,7 +135,7 @@ return [
     */
 
     'meilisearch' => [
-        'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
+        'host' => env('MEILISEARCH_HOST', 'https://localhost:7700'),
         'key' => env('MEILISEARCH_KEY', null),
         'index-settings' => [
             // 'users' => [

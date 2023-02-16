@@ -2,11 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class Client extends Model
 {
-    /**TODO::CHANGE THIS INTO A CRUD MODEL WITH MIGRATION SO IT WORKS WITH MULTIPLE API CLIENTS*/
+    use HasApiTokens, HasFactory;
+
+    protected $access_token = null;
+
+    private $client_secret = "4j3g4gj304gj3";
+
+    private $client_id = "1337";
+
+    private $grant_type = "client_credentials";
 
     const BASE_URL = "https://localhost:8000/api/";
 
@@ -18,13 +28,34 @@ class Client extends Model
 
     const PRODUCT_ENDPOINT = "menu/{menu_id}/product/{product_id}";
 
-    protected $access_token = null;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'client_secret',
+        'access_token',
+        'client_id',
+        'grant_type'
+    ];
 
-    private $client_secret = "4j3g4gj304gj3";
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'client_secret',
+        'access_token',
+        'client_id',
+        'grant_type',
+    ];
 
-    private $client_id = "1337";
-
-    private $grant_type = "client_credentials";
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * @return string

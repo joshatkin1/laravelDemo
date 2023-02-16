@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use helpers\PasswordEncryption;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
-    use Searchable;
     use HasFactory;
     use Notifiable;
 
@@ -47,43 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public $store = [];
-
-    /**
-     * This creates a user
-     *
-     * @param array $data
-     * @return mixed
-     */
-    public function create(array $data, PasswordEncryption $passwordEncryption): mixed
+    public function __construct()
     {
-        return static::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $passwordEncryption->hash($data['password']),
-        ]);
+        parent::__construct();
     }
 
-    /**
-     * This updates a user model with the key->values in $data
-     *
-     * @param array $data
-     * @return $this|bool
-     */
-    public function update(array $data, PasswordEncryption $passwordEncryption): User|bool
-    {
-        $this->fill($data);
-        $this->save();
-        return $this;
-    }
-
-    /**
-     * This deletes the model
-     *
-     * @return mixed
-     */
-    public function delete(): mixed
-    {
-        return $this->delete();
-    }
 }

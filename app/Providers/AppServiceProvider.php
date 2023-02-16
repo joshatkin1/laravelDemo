@@ -2,22 +2,21 @@
 
 namespace App\Providers;
 
-use App\Interfaces\ApiClient;
-use App\Models\Client as Client;
-use App\Services\FoodApi;
+use App\Interfaces\Api as ApiInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
+use App\Services\Api;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      *
-     * @return ClientModel
+     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->app->bind(ApiClient::class, fn($app) => new FoodApi(new Client()));
+        $this->app->bind(ApiInterface::class, fn($app) => Api::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);

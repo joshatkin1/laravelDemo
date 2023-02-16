@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface ApiClient
+interface Api
 {
     /**TODO::IMPLEMENT METHOD STUBS**/
 }

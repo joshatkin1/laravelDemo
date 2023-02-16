@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services;
 
-use App\Services\ApiClient;
+use App\Services\Api;
 use App\Models\Client;
 use App\Services\FoodApi;
 use Illuminate\Support\Facades\Http;
@@ -17,7 +17,7 @@ class ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->foodApi = new ApiClient(new Client());
+        $this->foodApi = new Api(new Client());
         $this->client = new Client();
     }
 

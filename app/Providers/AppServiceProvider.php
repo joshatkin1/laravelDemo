@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-use App\Services\Session;
+use App\Interfaces\ApiClient;
+use App\Models\Client as Client;
+use App\Services\FoodApi;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
 
@@ -11,10 +13,11 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      *
-     * @return void
+     * @return ClientModel
      */
     public function register()
     {
+        $this->app->bind(ApiClient::class, fn($app) => new FoodApi(new Client()));
 
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
@@ -29,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        //WHILE USING OCTANE/SWOOLE, THIS WILL BOOT THE SAME INSTANCE INTO THE REQUEST
+        //FOR THE ENTIRE SESSION LIFECYCLE (USE WITH CARE)
     }
 }

@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/auth_token', function (){
+    return [
+        'access_token' => 'test-token'
+    ];
+})->name('auth_token');
+

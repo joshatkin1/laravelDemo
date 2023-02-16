@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use helpers\PasswordEncryption;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,8 +49,41 @@ class User extends Authenticatable
 
     public $store = [];
 
-    public function store($value)
+    /**
+     * This creates a user
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data, PasswordEncryption $passwordEncryption): mixed
     {
-        $this->store[] = $value;
+        return static::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $passwordEncryption->hash($data['password']),
+        ]);
+    }
+
+    /**
+     * This updates a user model with the key->values in $data
+     *
+     * @param array $data
+     * @return $this|bool
+     */
+    public function update(array $data, PasswordEncryption $passwordEncryption): User|bool
+    {
+        $this->fill($data);
+        $this->save();
+        return $this;
+    }
+
+    /**
+     * This deletes the model
+     *
+     * @return mixed
+     */
+    public function delete(): mixed
+    {
+        return $this->delete();
     }
 }

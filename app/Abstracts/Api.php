@@ -29,9 +29,9 @@ abstract class Api
             throw new CredentialsException('missing client credentials');
         }
 
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ])->post($this->client::BASE_URL . $this->client::AUTH_TOKEN_ENDPOINT, data: [
+        $response = Http::withHeaders(['Accept' => 'application/json' ,'Content-Type' => 'application/x-www-form-urlencoded',])
+            ->withOptions(['verify'=> false])
+            ->post($this->client::BASE_URL . $this->client::AUTH_TOKEN_ENDPOINT, data: [
             'client_secret' => $this->client->getClientSecret(),
             'client_id' => $this->client->getClientId(),
             'grant_type' => $this->client->getGrantType(),

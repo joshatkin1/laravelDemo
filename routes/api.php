@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/auth_token', function (){
-    return 'cdcdcsdcsdc';
+    return [
+        'access_token' => 'test-token'
+    ];
 })->name('auth_token');
 

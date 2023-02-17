@@ -11,6 +11,7 @@
         "http-interop/http-factory-guzzle": "^1.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
+        "laravel/horizon": "^5.14",
         "laravel/octane": "^1.4",
         "laravel/sanctum": "^3.2",
         "laravel/scout": "^9.8",

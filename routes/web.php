@@ -22,4 +22,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('user');
+//Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'user'])->name('user');

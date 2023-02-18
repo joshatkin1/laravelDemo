@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserProfileRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -29,7 +28,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function user(UserProfileRequest $request, $id)
+    public function user(Request $request, $id)
     {
         $data = [
             'user' => new UserResource(User::find(request()->id))

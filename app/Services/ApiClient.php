@@ -12,10 +12,11 @@ class ApiClient extends ApiAbstract implements ApiClientInterface
      * This sets the api client
      *
      * @param Client $client
-     * @return void
+     * @return $this|ApiClient
      */
-    public function setClient(Client $client): void
+    public function setClient(Client $client): ApiClient
     {
         $this->client = $client;
+        return $this;
     }
 }

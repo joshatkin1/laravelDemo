@@ -20,7 +20,32 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
-Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'user'])->name('user');
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+    Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
+        Route::prefix('users')->group(function () {
+            Route::get('/', 'index')->name('users');
+        });
+
+        Route::prefix('user')->group(function () {
+            Route::get('/{id}', 'user')->name('user');
+        });
+    });
+
+    Route::controller(\App\Http\Controllers\PostController::class)->group(function () {
+
+        Route::prefix('posts')->group(function () {
+            Route::get('/', 'index')->name('posts');
+        });
+
+        Route::prefix('post')->group(function () {
+            Route::get('/', 'post')->name('post');
+        });
+    });
+
+
+});

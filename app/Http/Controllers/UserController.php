@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Request;
 
 class UserController extends Controller
 {
+
     /**
      * Show the application user dashboard.
      *

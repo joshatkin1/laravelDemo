@@ -48,6 +48,13 @@ class User extends Authenticatable
         'active' => 'boolean',
     ];
 
+    /**
+     * @var string[] List of all relations
+     */
+    protected $relations = [
+        'posts',
+    ];
+
     public function __construct()
     {
         parent::__construct();

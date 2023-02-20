@@ -10,10 +10,14 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $relations = [
+        'author',
+    ];
+
     /**
-     * Get the user that owns the phone.
+     * Get the author of the post
      */
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
         return $this->belongsTo(related: User::class, foreignKey: 'user_id', ownerKey: 'id');
     }

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Repositories;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use App\Models\Post;
 use App\Repositories\PostsRepository;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PostsRepositoryTests extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations, RefreshDatabase;
 
     protected $repository;
 

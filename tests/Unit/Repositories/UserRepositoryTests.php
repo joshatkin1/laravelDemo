@@ -2,12 +2,16 @@
 
 namespace Tests\Unit\Repositories;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Repositories\UserRepository;
 
 class UserRepositoryTests extends TestCase
 {
+    use DatabaseMigrations, RefreshDatabase;
+
     protected $userRepository;
 
     public function setUp(): void
@@ -26,7 +30,7 @@ class UserRepositoryTests extends TestCase
 
     public function test_find_method_returns_user_by_id()
     {
-        $user = factory(User::class)->create();
+        $user =  $user = User::factory()->count(3)->create();
 
         $foundUser = $this->userRepository->find($user->id);
 
@@ -51,7 +55,7 @@ class UserRepositoryTests extends TestCase
 
     public function test_update_method_updates_user_record()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->count(3)->create();
 
         $updateData = [
             'name' => 'Jane Doe',
@@ -68,7 +72,7 @@ class UserRepositoryTests extends TestCase
 
     public function test_delete_method_deletes_user_record()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->count(3)->create();
 
         $this->userRepository->delete($user->id);
 
@@ -79,7 +83,7 @@ class UserRepositoryTests extends TestCase
 
     public function test_all_with_relations_method_returns_collection_with_relations()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->count(3)->create();
         $user->posts()->create(['name' => 'posts']);
 
         $users = $this->userRepository->allWithRelations();

@@ -18,7 +18,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'name' => 'fake name',
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'job' => fake()->jobTitle(),
@@ -27,17 +27,5 @@ class UserFactory extends Factory
             'updated_at' => now(),
             'created_at' => now()
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }

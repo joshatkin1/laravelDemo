@@ -16,14 +16,14 @@ class RouteTests extends TestCase
 
     public function test_the_home_returns_a_successful_response()
     {
-        $response = $this->get(route('home'));
+        $response = $this->get('/home');
 
         $response->assertStatus(200);
     }
 
     public function test_the_users_page_returns_a_successful_response()
     {
-        $response = $this->get(route('users'));
+        $response = $this->get('/users');
 
         $response->assertStatus(200);
     }

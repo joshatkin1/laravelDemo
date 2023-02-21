@@ -8,7 +8,24 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function create(CreatePostRequest $request)
+    /**
+     * Show the application user dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $posts = [];
+
+        return view(view: 'posts.all', data: compact('posts'));
+    }
+
+    public function create()
+    {
+        return view(view: 'posts.create');
+    }
+
+    public function store(CreatePostRequest $request)
     {
         Post::create([
             'title' => $request->input('title'),
@@ -18,5 +35,13 @@ class PostController extends Controller
         return to_route('posts');
     }
 
+    public function update(Request $request)
+    {
+        $data = $request->only(['name', 'job']);
+
+        Post::update($data);
+
+        return to_route('posts');
+    }
 
 }

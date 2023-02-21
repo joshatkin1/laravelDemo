@@ -14,7 +14,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        User::factory()->count(3)->create();
         return view('home');
     }
 }

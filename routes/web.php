@@ -21,31 +21,35 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::middleware(['auth'])->group(function () {
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth']);
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-    Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
-        Route::prefix('users')->group(function () {
-            Route::get('/', 'index')->name('users');
-        });
-
-        Route::prefix('user')->group(function () {
-            Route::get('/{id}', 'user')->name('user');
-        });
+#USER/USERS ROUTES
+Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
+    Route::prefix('users')->group(function () {
+        Route::get('/', 'index')->name('users');
+        Route::get('/create', 'create')->name('users-create');
+        Route::post('/', 'store')->name('users-store');
     });
 
-    Route::controller(\App\Http\Controllers\PostController::class)->group(function () {
-
-        Route::prefix('posts')->group(function () {
-            Route::get('/', 'index')->name('posts');
-        });
-
-        Route::prefix('post')->group(function () {
-            Route::get('/', 'post')->name('post');
-        });
+    Route::prefix('user')->group(function () {
+        Route::get('/{id}', 'user')->name('user');
+        Route::put('/{id}', 'update')->name('user-update');
     });
 
+})->middleware(['auth']);
 
-});
+#POST ROUTES
+Route::controller(\App\Http\Controllers\PostController::class)->group(function () {
+
+    Route::prefix('posts')->group(function () {
+        Route::get('/', 'index')->name('posts');
+        Route::get('/create', 'create')->name('posts-create');
+        Route::post('/', 'store')->name('posts-store');
+    });
+
+    Route::prefix('post')->group(function () {
+        Route::get('/{id}', 'post')->name('post');
+        Route::put('/{id}', 'update')->name('user-update');
+    });
+
+})->middleware(['auth']);

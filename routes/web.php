@@ -25,6 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 #USER/USERS ROUTES
 Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
+
     Route::prefix('users')->group(function () {
         Route::get('/', 'index')->name('users');
         Route::get('/create', 'create')->name('users-create');
